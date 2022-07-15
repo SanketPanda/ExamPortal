@@ -9,6 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.ddce.examportal.entity.BaseEntity;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,7 +18,7 @@ import lombok.Setter;
 @Table(name = "question")
 @Getter
 @Setter
-public class Question {
+public class Question extends BaseEntity<Long> {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -44,5 +46,10 @@ public class Question {
 	
 	@ManyToOne(fetch = FetchType.EAGER)
 	private Quiz quiz;
+
+	@Override
+	public Long getId() {
+		return getQuestionId();
+	}
 	
 }

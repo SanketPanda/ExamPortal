@@ -14,6 +14,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.ddce.examportal.entity.BaseEntity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Getter;
@@ -23,7 +24,7 @@ import lombok.Setter;
 @Table(name = "quiz")
 @Getter
 @Setter
-public class Quiz {
+public class Quiz extends BaseEntity<Long> {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -50,4 +51,9 @@ public class Quiz {
 	@OneToMany(mappedBy = "quiz", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JsonIgnore
 	private Set<Question> questions = new HashSet<>();
+
+	@Override
+	public Long getId() {
+		return getQuizId();
+	}
 }
