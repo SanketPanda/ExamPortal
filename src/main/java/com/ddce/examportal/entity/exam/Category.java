@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.ddce.examportal.entity.BaseEntity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Getter;
@@ -22,7 +23,7 @@ import lombok.Setter;
 @Table(name = "category")
 @Getter
 @Setter
-public class Category {
+public class Category extends BaseEntity<Long> {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -37,5 +38,10 @@ public class Category {
 	@OneToMany(mappedBy = "category", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JsonIgnore
 	private Set<Quiz> quizze = new LinkedHashSet<>();
+
+	@Override
+	public Long getId() {
+		return getCategoryId();
+	}
 	
 }
